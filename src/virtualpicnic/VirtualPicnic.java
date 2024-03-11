@@ -53,9 +53,11 @@ public class VirtualPicnic {
             throw new RuntimeException(e);
         }
 
+        // Удаление пустых значений
         ls.removeIf(String::isEmpty);
     }
 
+    // Поиск самого длинного слова
     public static void checkLongestWord(List<String> ls)
     {
         int temp = 0;
@@ -67,34 +69,52 @@ public class VirtualPicnic {
             }
         }
 
-        System.out.println("Самое длинное слово - " + value + ", " + temp + " символов");
+        // вывод значений
+        System.out.println("\nСамое длинное слово - " + value + ", " + temp + " символов");
     }
 
+    // Статистика
     public static void statisticM(List<String> ls){
+        // ХэшМэп образует пару: название фрукта (ключ) - частота встречаемости (значение)
         HashMap<String, Integer> map = new HashMap<String, Integer>();
 
+        // Заполнение map значениями листа и подсчёт встречаемости
         for (String i : ls  ){
             if(map.containsKey(i))
                 map.put(i, map.get(i) + 1);
             else map.put(i,  1);
         }
 
-        System.out.println(map);
         String[] values = new String[map.size()];
-        //Set<String> mapValues =
         map.keySet().toArray(values);
 
+        // Вывод всего списка значений и
+        // Поиск самого большого значения среди фруктов
         int maxVeget = 0;
+        int tabCount = 0;
         String maxVegetKey = values[0];
+
+        System.out.println("\nВесь список овощей/фруктов:");
+
         for (int i = 0; i < values.length; i++) {
+            // Поиск самого большого значения
             if (maxVeget < map.get(values[i])) {
                 maxVeget = map.get(values[i]);
                 maxVegetKey = values[i];
             }
+
+            // Вывод всего списка значений
+            System.out.print(values[i] + " - " + map.get(values[i]) + " шт.;\t");
+            tabCount++;
+
+            if (tabCount > 6){
+                tabCount = 0;
+                System.out.print("\n");
+            }
         }
 
-        System.out.println("Самый популярный фрукт/овощ - " + maxVegetKey +
+        // Вывод итога
+        System.out.println("\nСамый популярный фрукт/овощ - " + maxVegetKey +
                 " - " + map.get(maxVegetKey) + " значений.");
     }
-
 }
